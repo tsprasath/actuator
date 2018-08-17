@@ -1,17 +1,15 @@
 pipeline {
   agent {
     docker {
-      image 'maven:latest'
-      args '$WORKSPACE:/tmp -u="root" -w /tmp'
+      image 'maven:3-alpine'
+      args '-v $HOME/.m2:/root/.m2'
     }
 
   }
   stages {
     stage('build') {
       steps {
-        sh '''mvn -v
-mvn -B -DskipTests clean package
-'''
+        sh '''mvn -v'''
       }
     }
   }
